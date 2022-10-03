@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | DSA&nbsp;Buddy</title>
+    <!-- font files -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- base css files -->
+    <link rel="shortcut icon" href="{% static 'base/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'base/css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    <script src="{% static 'base/js/nav.js' %}"></script>
+    <script src="{% static 'base/js/msg.js' %}"></script>
+    {% block head %}
+    {% endblock %}
+</head>
+<body class="min-h-screen font-inter bg-gradient-to-br from-slate-900 to-neutral-900 via-neutral-900 text-slate-100">
+    {% include 'base/navbar.html' %}
+    <div class="pt-16 h-full">
+        {% if messages %}
+        <ul class="messages max-w-[80vw] mx-auto container flex flex-col">
+            {% for message in messages %}
+            <li{% if message.tags %} class="flex flex-row justify-between mx-auto w-full {{ message.tags }}" {% endif %} id="msg_{{message}}">
+                <div>{{message}}</div>
+                <div class="flex"><button class="text-black font-bold m-auto" onclick="close_box('msg_{{message}}')"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 m-auto" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg></button></div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <main>
+        {% block content %}
+
+        {% endblock %}
+        </main>
+    </div>
+</body>
+{% include 'base/footer.html' %}
+</html>
