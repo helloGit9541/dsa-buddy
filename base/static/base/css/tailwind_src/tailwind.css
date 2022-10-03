@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.info {
+    @apply bg-blue-300 px-2 py-2 rounded-md;
+}
+.success {
+    @apply bg-green-300 px-2 py-2 rounded-md;
+}
+.error {
+    @apply bg-red-300 px-2 py-2 rounded-md;
+}

@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+    <div class="container max-w-5xl px-4 mx-auto flex flex-center flex-col justify-center min-h-[calc(100vh-80px)]">
+        <ul class="flex flex-row">
+            <li class="max-w-2xl mx-auto flex flex-col gap-4">
+                <h2 class="text-2xl font-bold">Welcome to DSA Buddy</h2>
+                <h3 class="text-lg font-thin">Your DSA Buddy, one to share your progress with, one to help you practice and one to help you combine your effort accross different coding platforms.</h3>
+                <div class="flex flex-row justify-center">
+                    <a href="#" class="bg-gradient-to-r from-indigo-500 to bg-purple-500 text-slate-900 font-bold py-2 px-3 rounded-lg my-3">Register Now</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- <div class="h-screen"></div> -->
+{% endblock %}
