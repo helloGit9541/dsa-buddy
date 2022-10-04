@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+Login
+{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+    <div class="container max-w-5xl px-4 mx-auto flex flex-center flex-col justify-center min-h-[calc(100vh-80px)]">
+        <h2 class="text-2xl font-bold text-center my-2">Login</h2>
+        {% if user.is_authenticated %}
+            <h3 class="text-lg font-semibold text-center">Please logout to login</h3>
+        {% else %}
+        <form action="" method="post" class="flex flex-col gap-2 max-w-[500px] mx-auto bg-gray-700/20 rounded-lg p-3">
+            {% csrf_token %}
+            <label for="id_username" class="font-semibold w-full text-left pl-3 text-slate-400">Username</label>
+            <input required type="text" name="username" id="id_username" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full" value="Hello_world">
+            <label for="id_password" class="font-semibold w-full text-left pl-3 text-slate-400">Password</label>
+            <input required type="password" name="password" id="id_password" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full">
+            <h2 class="text-sm font-medium">Not registered an account yet, <a href="{% url 'accounts:register' %}" class="underline text-indigo-500">Register Here</a></h2>
+            <input type="submit" value="Login" name="login" class="bg-gradient-to-r from-fuchsia-500 to-indigo-500 w-fit px-4 py-2 mt-2 rounded-full mx-auto font-bold text-gray-50 cursor-pointer">
+        </form>
+        {% endif %}
+    </div>
+    <!-- <div class="h-screen"></div> -->
+{% endblock %}

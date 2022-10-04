@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+Register
+{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+    <div class="container max-w-5xl px-4 mx-auto flex flex-center flex-col justify-center min-h-[calc(100vh-80px)]">
+        <h2 class="text-2xl font-bold text-center my-2">Register</h2>
+        {% if user.is_authenticated %}
+            <h3 class="text-lg font-medium text-center">Please logout to register.</h3>
+        {% else %}
+        <form action="" method="post" class="flex flex-col gap-2 max-w-[500px] mx-auto bg-gray-700/20 rounded-lg p-3">
+            {% csrf_token %}
+            <label for="id_username" class="font-semibold w-full text-left pl-3 text-slate-400">Username</label>
+            <input required type="text" name="username" id="id_username" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full" value="Hello_world">
+            <label for="id_password" class="font-semibold w-full text-left pl-3 text-slate-400">Password</label>
+            <input required type="password" name="password" id="id_password" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full">
+            <label for="id_username" class="font-semibold w-full text-left pl-3 text-slate-400">First Name</label>
+            <input required type="text" name="first_name" id="id_first_name" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full" value="John">
+            <label for="id_last_name" class="font-semibold w-full text-left pl-3 text-slate-400">Last Name</label>
+            <input required type="text" name="last_name" id="id_last_name" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full" value="Wick">
+            <label for="id_email" class="font-semibold w-full text-left pl-3 text-slate-400">Email</label>
+            <input required type="email" name="email" id="id_email" class="bg-slate-800/80 py-2 px-4 rounded-md shadow-indigo-800 shadow-sm w-[80vw] max-w-full" value="me@example.com">
+            <h2 class="text-sm font-medium">Have an account already? <a href="{% url 'accounts:login' %}" class="underline text-indigo-500">Login Here</a></h2>
+            <input type="submit" value="Register" name="register" class="bg-gradient-to-r from-fuchsia-500 to-indigo-500 w-fit px-4 py-2 mt-2 rounded-full mx-auto font-bold text-gray-50 cursor-pointer">
+        </form>
+        {% endif %}
+    </div>
+    <!-- <div class="h-screen"></div> -->
+{% endblock %}
