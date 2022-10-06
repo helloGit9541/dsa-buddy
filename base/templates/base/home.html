@@ -58,7 +58,7 @@ Home
                     </tr>
                     </thead>
                     <tbody>
-                    {% for problem in problems_list %}
+                    {% for problem in problems %}
                         {% if problem.even %}
                         <tr class="bg-gray-800/80 ">
                             <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium ">
@@ -71,9 +71,7 @@ Home
                             {{problem.difficulty}}
                             </td>
                             <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                            {% for topic in problem.topics %}
-                                {{topic.name}},
-                            {% endfor %}
+                            {% for topic in problem.topics.all %}{{topic.name}},{% endfor %}
                             </td>
                             <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
                             {{problem.link_to_problem}}
@@ -91,7 +89,7 @@ Home
                         {{problem.difficulty}}
                         </td>
                         <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                        {% for topic in problem.topics %}
+                        {% for topic in problem.topics.all %}
                             {{topic.name}},
                         {% endfor %}
                         </td>

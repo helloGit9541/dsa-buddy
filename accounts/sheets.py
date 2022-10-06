@@ -4,7 +4,7 @@ import gspread
 
 def get_topics(sheet_link,start_row = 2):
     topics_list = []
-    service_account = gspread.service_account(filename='service_account.json')
+    service_account = gspread.service_account(filename='/home/tooshort9541/Desktop/Projects/dsa-buddy/accounts/service_account.json')
     sh = service_account.open_by_url(sheet_link)
     problem_records = sh.worksheet('Sheet1').col_values(2)
     current_row = 1
@@ -20,7 +20,7 @@ def get_topics(sheet_link,start_row = 2):
 
 def get_problems(sheet_link,start_row=2):
     problems_list = []
-    service_account = gspread.service_account(filename='service_account.json')
+    service_account = gspread.service_account(filename='/home/tooshort9541/Desktop/Projects/dsa-buddy/accounts/service_account.json')
     sh = service_account.open_by_url(sheet_link)
     problem_records = sh.worksheet('Sheet1').get_all_records()
     current_row = 1
@@ -29,6 +29,7 @@ def get_problems(sheet_link,start_row=2):
             new_problem = {}
             new_problem['title']=record['question']
             new_problem['topics']=str(record['topics']).split()
+            new_problem['difficulty']=record['level']
             new_problem['link']=record['link']
             new_problem['date']=record['date']
             new_problem['notes']=record['notes']
@@ -42,3 +43,5 @@ def get_problems(sheet_link,start_row=2):
 # print(get_topics(sheet_link))
 
 # print(get_problems(sheet_link))
+# for problem in get_problems(sheet_link):
+#     print(problem.get('title'))
