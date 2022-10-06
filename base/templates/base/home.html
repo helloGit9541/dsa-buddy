@@ -8,15 +8,103 @@ Home
 {% endblock %}
 {% block content %}
     <div class="container max-w-5xl px-4 mx-auto flex flex-center flex-col justify-center min-h-[calc(100vh-80px)]">
-        <ul class="flex flex-row">
-            <li class="max-w-2xl mx-auto flex flex-col gap-4">
-                <h2 class="text-2xl font-bold">Welcome to DSA Buddy</h2>
-                <h3 class="text-lg font-thin">Your DSA Buddy, one to share your progress with, one to help you practice and one to help you combine your effort accross different coding platforms.</h3>
-                <div class="flex flex-row justify-center">
-                    <a href="{% url 'accounts:register' %}" class="bg-gradient-to-r from-indigo-500 to bg-fuchsia-500 text-slate-50 font-bold py-2 px-3 rounded-lg my-3">Register Now</a>
-                </div>
-            </li>
-        </ul>
+        {% if not user.is_authenticated %}
+            <ul class="flex flex-row">
+                <li class="max-w-2xl mx-auto flex flex-col gap-4">
+                    <h2 class="text-2xl font-bold">Welcome to DSA Buddy</h2>
+                    <h3 class="text-lg font-thin">Your DSA Buddy, one to share your progress with, one to help you practice and one to help you combine your effort accross different coding platforms.</h3>
+                    <div class="flex flex-row justify-center">
+                        <a href="{% url 'accounts:register' %}" class="bg-gradient-to-r from-indigo-500 to bg-fuchsia-500 text-slate-50 font-bold py-2 px-3 rounded-lg my-3">Register Now</a>
+                    </div>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="flex flex-row w-full space-between gap-4">
+                <li class="text-center bg-gray-800/40 py-3 px-2 w-[50%] rounded-md flex flex-col justify-center">
+                    <h2 class="text-lg font-medium">Problems Solved</h2>
+                    <h1 class="text-4xl font-black">{{num_problem}}</h1>
+                </li>
+                <li class="text-center bg-gray-800/40 py-3 px-2 w-[50%] rounded-md">
+                    <h2 class="text-lg font-medium">Topics</h2>
+                    <ul class="flex flex-row flex-wrap gap-2 justify-center text-sm py-2">
+                        {% for topic in topics %}
+                            <li class="bg-teal-500 text-slate-800 font-semibold px-2 py-1 rounded-md">
+                                {{topic.name}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            <h2 class="text-lg font-medium my-3 underline-offset-1 underline">Recently Solved Problems</h2>
+            <div class="overflow-hidden w-full">
+                <table class="min-w-full text-slate-100">
+                    <thead class="bg-gray-800/80 rounded text-slate-50">
+                    <tr>
+                        <th scope="col" class="text-sm font-medium px-2 py-2 align-middletext-left whitespace-nowrap">
+                        Row No.
+                        </th>
+                        <th scope="col"  class="text-sm font-medium px-2 py-2 align-middletext-left">
+                        Title
+                        </th>
+                        <th scope="col" class="text-sm font-medium px-2 py-2 align-middletext-left">
+                        Difficulty
+                        </th>
+                        <th scope="col" class="text-sm font-medium px-2 py-2 align-middletext-left">
+                        Topics
+                        </th>
+                        <th scope="col" class="text-sm font-medium px-2 py-2 align-middletext-left">
+                        Link To Problem
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for problem in problems_list %}
+                        {% if problem.even %}
+                        <tr class="bg-gray-800/80 ">
+                            <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium ">
+                                {{problem.row_number}}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {{problem.title}}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {{problem.difficulty}}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {% for topic in problem.topics %}
+                                {{topic.name}},
+                            {% endfor %}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {{problem.link_to_problem}}
+                            </td>
+                        </tr>
+                        {% else %}
+                    <tr class="bg-gray-900/10">
+                        <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium">
+                            {{problem.row_number}}
+                        </td>
+                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {{problem.title}}
+                        </td>
+                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                        {{problem.difficulty}}
+                        </td>
+                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                        {% for topic in problem.topics %}
+                            {{topic.name}},
+                        {% endfor %}
+                        </td>
+                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {{problem.link}}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
     <!-- <div class="h-screen"></div> -->
 {% endblock %}
