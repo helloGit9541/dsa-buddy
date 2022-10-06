@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from accounts.models import DsaUser
+from accounts.models import DsaUser, Problem
 from django.contrib import messages
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from accounts.problem_handling import reset,sync_from_start
 
 #utilities
 def get_user_list():
@@ -78,3 +79,26 @@ def logout_page(request):
         messages.info(request,'User logged out successfully')
         return redirect('/accounts/login')
     return redirect('/accounts/login')
+
+@login_required
+def profile_settings(request):
+    context = {}
+    dsa_user = DsaUser.objects.get(user=request.user)
+    if request.method == 'POST':
+        if 'update_sheet' in request.POST:
+            new_sheet_link = request.POST.get('sheet_link')
+            dsa_user.sheet_link=new_sheet_link
+            dsa_user.save()
+            reset(request.user)
+            sync_from_start(dsa_user)
+            messages.success(request,"Succesfully loaded problems and topics.")
+            return redirect('/')
+    # todo get list of problems for the user
+    problems_list = Problem.objects.filter(user=request.user)
+    num_problems = len(problems_list)
+    # context['num_problems'] = num_problems
+    # context['easy_num'] = len(problems_list.filter(difficulty='easy'))
+    # context['medium_num'] = len(problems_list.filter(difficulty='medium'))
+    # context['hard_num'] = len(problems_list.filter(difficulty='hard'))
+
+    return render(request,'accounts/settings.html', context)

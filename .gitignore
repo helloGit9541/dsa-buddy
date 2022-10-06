@@ -5,3 +5,4 @@ node_modules/
 base/__pycache__
 *migrations/
 *.cpython-310.pyc
+service_account.json
