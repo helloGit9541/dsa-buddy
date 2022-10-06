@@ -84,6 +84,7 @@ def logout_page(request):
 def profile_settings(request):
     context = {}
     dsa_user = DsaUser.objects.get(user=request.user)
+    context['dsa_user'] = dsa_user
     if request.method == 'POST':
         if 'update_sheet' in request.POST:
             new_sheet_link = request.POST.get('sheet_link')
@@ -100,5 +101,5 @@ def profile_settings(request):
     # context['easy_num'] = len(problems_list.filter(difficulty='easy'))
     # context['medium_num'] = len(problems_list.filter(difficulty='medium'))
     # context['hard_num'] = len(problems_list.filter(difficulty='hard'))
-
+    print(context)
     return render(request,'accounts/settings.html', context)
