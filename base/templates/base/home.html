@@ -24,9 +24,10 @@ Home
                     <h2 class="text-lg font-medium">Problems Solved</h2>
                     <h1 class="text-4xl font-black">{{num_problem}}</h1>
                 </li>
+                <link rel="stylesheet" href="{% static 'base/css/scrollbar.css' %}">
                 <li class="text-center bg-gray-800/40 py-3 px-2 w-[50%] rounded-md">
                     <h2 class="text-lg font-medium">Topics</h2>
-                    <ul class="flex flex-row flex-wrap gap-2 justify-center text-sm py-2">
+                    <ul class="flex flex-row flex-wrap gap-2 justify-center text-sm py-2 max-h-[25vh] overflow-auto special-scrollbar">
                         {% for topic in topics %}
                             <li class="bg-teal-500 text-slate-800 font-semibold px-2 py-1 rounded-md">
                                 {{topic.name}}
@@ -59,44 +60,48 @@ Home
                     </thead>
                     <tbody>
                     {% for problem in problems %}
-                        {% if problem.even %}
-                        <tr class="bg-gray-800/80 ">
-                            <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium ">
+                        {% if problem.even == True %}
+                        <tr class="bg-gray-800/80 my-auto">
+                            <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium">
                                 {{problem.row_number}}
                             </td>
                             <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                            {{problem.title}}
+                                {{problem.title}}
                             </td>
                             <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
                             {{problem.difficulty}}
                             </td>
                             <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                            {% for topic in problem.topics.all %}{{topic.name}},{% endfor %}
-                            </td>
+                            {% for topic in problem.topics.all %}{{topic.name}},&nbsp;{% endfor %}</td>
                             <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                            {{problem.link_to_problem}}
+                                <a href="{{problem.link_to_problem}}" class="text-sm my-auto flex flex-row justify-center place-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                                      </svg>
+                                </a>
                             </td>
                         </tr>
                         {% else %}
-                    <tr class="bg-gray-900/10">
-                        <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium">
-                            {{problem.row_number}}
-                        </td>
-                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                            {{problem.title}}
-                        </td>
-                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                        {{problem.difficulty}}
-                        </td>
-                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                        {% for topic in problem.topics.all %}
-                            {{topic.name}},
-                        {% endfor %}
-                        </td>
-                        <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
-                            {{problem.link}}
-                        </td>
-                    </tr>
+                        <tr class="bg-gray-900/10">
+                            <td class="px-2 py-2 align-middle whitespace-pre-line text-sm font-medium">
+                                {{problem.row_number}}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                                {{problem.title}}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {{problem.difficulty}}
+                            </td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                            {% for topic in problem.topics.all %}{{topic.name}},&nbsp;{% endfor %}</td>
+                            <td class="text-sm font-light px-2 py-2 align-middle whitespace-pre-line">
+                                <a href="{{problem.link_to_problem}}" class="text-sm my-auto flex flex-row justify-center place-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                                      </svg>
+                                </a>
+                            </td>
+                        </tr>
                     {% endif %}
                     {% endfor %}
                     </tbody>
