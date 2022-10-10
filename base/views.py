@@ -8,14 +8,13 @@ def home(request):
     context['num_problem'] = len(problems)
     count = 1
     for problem in problems:
-        new_problem = problem
         if count%2==0:
-            new_problem.even = True
+            problem.even = True
         else:
-            new_problem.even = False
-        problem=new_problem
-        ++count
+            problem.even = False
+        print(problem.even)
+        count+=1
     context['problems'] = problems
     context['topics'] = Topic.objects.all()
-    print(context)
+    # print(context)
     return render(request,template_name='base/home.html', context=context)
